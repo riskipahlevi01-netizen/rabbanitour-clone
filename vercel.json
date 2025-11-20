@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/paket-umroh/:slug",  
+      "destination": "/paket-umroh/:slug.html"  
+    }
+  ]
+}
