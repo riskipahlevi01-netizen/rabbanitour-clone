@@ -5,7 +5,7 @@
 
 	<script>if (navigator.userAgent.match(/MSIE|Internet Explorer/i) || navigator.userAgent.match(/Trident\/7\..*?rv:11/i)) { var href = document.location.href; if (!href.match(/[?&]nowprocket/)) { if (href.indexOf("?") == -1) { if (href.indexOf("#") == -1) { document.location.href = href + "?nowprocket=1" } else { document.location.href = href.replace("#", "?nowprocket=1#") } } else { if (href.indexOf("#") == -1) { document.location.href = href + "&nowprocket=1" } else { document.location.href = href.replace("#", "&nowprocket=1#") } } } }</script>
 	<script>(() => { class RocketLazyLoadScripts { constructor() { this.v = "1.2.5.1", this.triggerEvents = ["keydown", "mousedown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"], this.userEventHandler = this.t.bind(this), this.touchStartHandler = this.i.bind(this), this.touchMoveHandler = this.o.bind(this), this.touchEndHandler = this.h.bind(this), this.clickHandler = this.u.bind(this), this.interceptedClicks = [], this.interceptedClickListeners = [], this.l(this), window.addEventListener("pageshow", (t => { this.persisted = t.persisted, this.everythingLoaded && this.m() })), document.addEventListener("DOMContentLoaded", (() => { this.p() })), this.delayedScripts = { normal: [], async: [], defer: [] }, this.trash = [], this.allJQueries = [] } k(t) { document.hidden ? t.t() : (this.triggerEvents.forEach((e => window.addEventListener(e, t.userEventHandler, { passive: !0 }))), window.addEventListener("touchstart", t.touchStartHandler, { passive: !0 }), window.addEventListener("mousedown", t.touchStartHandler), document.addEventListener("visibilitychange", t.userEventHandler)) } _() { this.triggerEvents.forEach((t => window.removeEventListener(t, this.userEventHandler, { passive: !0 }))), document.removeEventListener("visibilitychange", this.userEventHandler) } i(t) { "HTML" !== t.target.tagName && (window.addEventListener("touchend", this.touchEndHandler), window.addEventListener("mouseup", this.touchEndHandler), window.addEventListener("touchmove", this.touchMoveHandler, { passive: !0 }), window.addEventListener("mousemove", this.touchMoveHandler), t.target.addEventListener("click", this.clickHandler), this.L(t.target, !0), this.M(t.target, "onclick", "rocket-onclick"), this.C()) } o(t) { window.removeEventListener("touchend", this.touchEndHandler), window.removeEventListener("mouseup", this.touchEndHandler), window.removeEventListener("touchmove", this.touchMoveHandler, { passive: !0 }), window.removeEventListener("mousemove", this.touchMoveHandler), t.target.removeEventListener("click", this.clickHandler), this.L(t.target, !1), this.M(t.target, "rocket-onclick", "onclick"), this.O() } h() { window.removeEventListener("touchend", this.touchEndHandler), window.removeEventListener("mouseup", this.touchEndHandler), window.removeEventListener("touchmove", this.touchMoveHandler, { passive: !0 }), window.removeEventListener("mousemove", this.touchMoveHandler) } u(t) { t.target.removeEventListener("click", this.clickHandler), this.L(t.target, !1), this.M(t.target, "rocket-onclick", "onclick"), this.interceptedClicks.push(t), t.preventDefault(), t.stopPropagation(), t.stopImmediatePropagation(), this.O() } D() { window.removeEventListener("touchstart", this.touchStartHandler, { passive: !0 }), window.removeEventListener("mousedown", this.touchStartHandler), this.interceptedClicks.forEach((t => { t.target.dispatchEvent(new MouseEvent("click", { view: t.view, bubbles: !0, cancelable: !0 })) })) } l(t) { EventTarget.prototype.addEventListenerBase = EventTarget.prototype.addEventListener, EventTarget.prototype.addEventListener = function (e, i, o) { "click" !== e || t.windowLoaded || i === t.clickHandler || t.interceptedClickListeners.push({ target: this, func: i, options: o }), (this || window).addEventListenerBase(e, i, o) } } L(t, e) { this.interceptedClickListeners.forEach((i => { i.target === t && (e ? t.removeEventListener("click", i.func, i.options) : t.addEventListener("click", i.func, i.options)) })), t.parentNode !== document.documentElement && this.L(t.parentNode, e) } S() { return new Promise((t => { this.T ? this.O = t : t() })) } C() { this.T = !0 } O() { this.T = !1 } M(t, e, i) { t.hasAttribute && t.hasAttribute(e) && (event.target.setAttribute(i, event.target.getAttribute(e)), event.target.removeAttribute(e)) } t() { this._(this), "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", this.R.bind(this)) : this.R() } p() { let t = []; document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach((e => { let i = e.getAttribute("data-rocket-src"); if (i && 0 !== i.indexOf("data:")) { 0 === i.indexOf("//") && (i = location.protocol + i); try { const o = new URL(i).origin; o !== location.origin && t.push({ src: o, crossOrigin: e.crossOrigin || "module" === e.getAttribute("data-rocket-type") }) } catch (t) { } } })), t = [...new Map(t.map((t => [JSON.stringify(t), t]))).values()], this.j(t, "preconnect") } async R() { this.lastBreath = Date.now(), this.P(this), this.F(this), this.q(), this.A(), this.I(), await this.U(this.delayedScripts.normal), await this.U(this.delayedScripts.defer), await this.U(this.delayedScripts.async); try { await this.W(), await this.H(this), await this.J() } catch (t) { console.error(t) } window.dispatchEvent(new Event("rocket-allScriptsLoaded")), this.everythingLoaded = !0, this.S().then((() => { this.D() })), this.N() } A() { document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((t => { t.hasAttribute("data-rocket-src") ? t.hasAttribute("async") && !1 !== t.async ? this.delayedScripts.async.push(t) : t.hasAttribute("defer") && !1 !== t.defer || "module" === t.getAttribute("data-rocket-type") ? this.delayedScripts.defer.push(t) : this.delayedScripts.normal.push(t) : this.delayedScripts.normal.push(t) })) } async B(t) { if (await this.G(), !0 !== t.noModule || !("noModule" in HTMLScriptElement.prototype)) return new Promise((e => { let i; function o() { (i || t).setAttribute("data-rocket-status", "executed"), e() } try { if (navigator.userAgent.indexOf("Firefox/") > 0 || "" === navigator.vendor) i = document.createElement("script"), [...t.attributes].forEach((t => { let e = t.nodeName; "type" !== e && ("data-rocket-type" === e && (e = "type"), "data-rocket-src" === e && (e = "src"), i.setAttribute(e, t.nodeValue)) })), t.text && (i.text = t.text), i.hasAttribute("src") ? (i.addEventListener("load", o), i.addEventListener("error", (function () { i.setAttribute("data-rocket-status", "failed"), e() })), setTimeout((() => { i.isConnected || e() }), 1)) : (i.text = t.text, o()), t.parentNode.replaceChild(i, t); else { const i = t.getAttribute("data-rocket-type"), n = t.getAttribute("data-rocket-src"); i ? (t.type = i, t.removeAttribute("data-rocket-type")) : t.removeAttribute("type"), t.addEventListener("load", o), t.addEventListener("error", (function () { t.setAttribute("data-rocket-status", "failed"), e() })), n ? (t.removeAttribute("data-rocket-src"), t.src = n) : t.src = "data:text/javascript;base64," + window.btoa(unescape(encodeURIComponent(t.text))) } } catch (i) { t.setAttribute("data-rocket-status", "failed"), e() } })); t.setAttribute("data-rocket-status", "skipped") } async U(t) { const e = t.shift(); return e && e.isConnected ? (await this.B(e), this.U(t)) : Promise.resolve() } I() { this.j([...this.delayedScripts.normal, ...this.delayedScripts.defer, ...this.delayedScripts.async], "preload") } j(t, e) { var i = document.createDocumentFragment(); t.forEach((t => { const o = t.getAttribute && t.getAttribute("data-rocket-src") || t.src; if (o) { const n = document.createElement("link"); n.href = o, n.rel = e, "preconnect" !== e && (n.as = "script"), t.getAttribute && "module" === t.getAttribute("data-rocket-type") && (n.crossOrigin = !0), t.crossOrigin && (n.crossOrigin = t.crossOrigin), t.integrity && (n.integrity = t.integrity), i.appendChild(n), this.trash.push(n) } })), document.head.appendChild(i) } P(t) { let e = {}; function i(i, o) { return e[o].eventsToRewrite.indexOf(i) >= 0 && !t.everythingLoaded ? "rocket-" + i : i } function o(t, o) { !function (t) { e[t] || (e[t] = { originalFunctions: { add: t.addEventListener, remove: t.removeEventListener }, eventsToRewrite: [] }, t.addEventListener = function () { arguments[0] = i(arguments[0], t), e[t].originalFunctions.add.apply(t, arguments) }, t.removeEventListener = function () { arguments[0] = i(arguments[0], t), e[t].originalFunctions.remove.apply(t, arguments) }) }(t), e[t].eventsToRewrite.push(o) } function n(e, i) { let o = e[i]; e[i] = null, Object.defineProperty(e, i, { get: () => o || function () { }, set(n) { t.everythingLoaded ? o = n : e["rocket" + i] = o = n } }) } o(document, "DOMContentLoaded"), o(window, "DOMContentLoaded"), o(window, "load"), o(window, "pageshow"), o(document, "readystatechange"), n(document, "onreadystatechange"), n(window, "onload"), n(window, "onpageshow") } F(t) { let e; function i(e) { return t.everythingLoaded ? e : e.split(" ").map((t => "load" === t || 0 === t.indexOf("load.") ? "rocket-jquery-load" : t)).join(" ") } function o(o) { if (o && o.fn && !t.allJQueries.includes(o)) { o.fn.ready = o.fn.init.prototype.ready = function (e) { return t.domReadyFired ? e.bind(document)(o) : document.addEventListener("rocket-DOMContentLoaded", (() => e.bind(document)(o))), o([]) }; const e = o.fn.on; o.fn.on = o.fn.init.prototype.on = function () { return this[0] === window && ("string" == typeof arguments[0] || arguments[0] instanceof String ? arguments[0] = i(arguments[0]) : "object" == typeof arguments[0] && Object.keys(arguments[0]).forEach((t => { const e = arguments[0][t]; delete arguments[0][t], arguments[0][i(t)] = e }))), e.apply(this, arguments), this }, t.allJQueries.push(o) } e = o } o(window.jQuery), Object.defineProperty(window, "jQuery", { get: () => e, set(t) { o(t) } }) } async H(t) { const e = document.querySelector("script[data-webpack]"); e && (await async function () { return new Promise((t => { e.addEventListener("load", t), e.addEventListener("error", t) })) }(), await t.K(), await t.H(t)) } async W() { this.domReadyFired = !0, await this.G(), document.dispatchEvent(new Event("rocket-readystatechange")), await this.G(), document.rocketonreadystatechange && document.rocketonreadystatechange(), await this.G(), document.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this.G(), window.dispatchEvent(new Event("rocket-DOMContentLoaded")) } async J() { await this.G(), document.dispatchEvent(new Event("rocket-readystatechange")), await this.G(), document.rocketonreadystatechange && document.rocketonreadystatechange(), await this.G(), window.dispatchEvent(new Event("rocket-load")), await this.G(), window.rocketonload && window.rocketonload(), await this.G(), this.allJQueries.forEach((t => t(window).trigger("rocket-jquery-load"))), await this.G(); const t = new Event("rocket-pageshow"); t.persisted = this.persisted, window.dispatchEvent(t), await this.G(), window.rocketonpageshow && window.rocketonpageshow({ persisted: this.persisted }), this.windowLoaded = !0 } m() { document.onreadystatechange && document.onreadystatechange(), window.onload && window.onload(), window.onpageshow && window.onpageshow({ persisted: this.persisted }) } q() { const t = new Map; document.write = document.writeln = function (e) { const i = document.currentScript; i || console.error("WPRocket unable to document.write this: " + e); const o = document.createRange(), n = i.parentElement; let s = t.get(i); void 0 === s && (s = i.nextSibling, t.set(i, s)); const c = document.createDocumentFragment(); o.setStart(c, 0), c.appendChild(o.createContextualFragment(e)), n.insertBefore(c, s) } } async G() { Date.now() - this.lastBreath > 45 && (await this.K(), this.lastBreath = Date.now()) } async K() { return document.hidden ? new Promise((t => setTimeout(t))) : new Promise((t => requestAnimationFrame(t))) } N() { this.trash.forEach((t => t.remove())) } static run() { const t = new RocketLazyLoadScripts; t.k(t) } } RocketLazyLoadScripts.run() })();</script>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 
 	<title>Travel Umroh Rabbanitour |✅Umroh 25JT ALL IN|✅Diskon 1JT</title>
 	<meta name="description"
@@ -17,16 +17,17 @@
 	<script
 		type="application/javascript">const rocket_pairs = [{ "selector": ".elementor-40768 .elementor-element.elementor-element-12b0d37:not(.elementor-motion-effects-element-type-background), .elementor-40768 .elementor-element.elementor-element-12b0d37 > .elementor-motion-effects-container > .elementor-motion-effects-layer", "style": ".elementor-40768 .elementor-element.elementor-element-12b0d37:not(.elementor-motion-effects-element-type-background), .elementor-40768 .elementor-element.elementor-element-12b0d37 > .elementor-motion-effects-container > .elementor-motion-effects-layer{--wpr-bg-436daf60-222f-478d-8a1d-3416a1a5f853: url('/wp-content\/uploads\/2024\/07\/Umroh-Bersama-Rabbanitour.webp');}", "hash": "436daf60-222f-478d-8a1d-3416a1a5f853", "url": "/wp-content\/uploads\/2024\/07\/Umroh-Bersama-Rabbanitour.webp" }, { "selector": ".elementor-40768 .elementor-element.elementor-element-9972ab2:not(.elementor-motion-effects-element-type-background), .elementor-40768 .elementor-element.elementor-element-9972ab2 > .elementor-motion-effects-container > .elementor-motion-effects-layer", "style": ".elementor-40768 .elementor-element.elementor-element-9972ab2:not(.elementor-motion-effects-element-type-background), .elementor-40768 .elementor-element.elementor-element-9972ab2 > .elementor-motion-effects-container > .elementor-motion-effects-layer{--wpr-bg-a723437a-7499-4b7d-b38c-183b44ba588c: url('/wp-content\/uploads\/2023\/06\/Tiara-Andini-Umroh-Bersama-Rabbanitour.jpeg');}", "hash": "a723437a-7499-4b7d-b38c-183b44ba588c", "url": "/wp-content\/uploads\/2023\/06\/Tiara-Andini-Umroh-Bersama-Rabbanitour.jpeg" }, { "selector": ".elementor-106524 .elementor-element.elementor-element-af8213a:not(.elementor-motion-effects-element-type-background), .elementor-106524 .elementor-element.elementor-element-af8213a > .elementor-motion-effects-container > .elementor-motion-effects-layer", "style": ".elementor-106524 .elementor-element.elementor-element-af8213a:not(.elementor-motion-effects-element-type-background), .elementor-106524 .elementor-element.elementor-element-af8213a > .elementor-motion-effects-container > .elementor-motion-effects-layer{--wpr-bg-ab71f2e1-4156-49d7-8fef-50acef367de6: url('/wp-content\/uploads\/2024\/11\/tiara-andini-umroh-bersama-rabbanitour.webp');}", "hash": "ab71f2e1-4156-49d7-8fef-50acef367de6", "url": "/wp-content\/uploads\/2024\/11\/tiara-andini-umroh-bersama-rabbanitour.webp" }, { "selector": ".elementor-106573 .elementor-element.elementor-element-5dbc784, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .elementor-background-video-container, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .e-con-inner > .elementor-background-video-container, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .elementor-background-slideshow, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .e-con-inner > .elementor-background-slideshow, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .elementor-motion-effects-container > .elementor-motion-effects-layer", "style": ".elementor-106573 .elementor-element.elementor-element-5dbc784::before, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .elementor-background-video-container::before, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .e-con-inner > .elementor-background-video-container::before, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .elementor-background-slideshow::before, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .e-con-inner > .elementor-background-slideshow::before, .elementor-106573 .elementor-element.elementor-element-5dbc784 > .elementor-motion-effects-container > .elementor-motion-effects-layer::before{--wpr-bg-1541a87e-8cf8-40ed-a9f3-d14a0c599f1f: url('/wp-content\/uploads\/2025\/07\/Cryptocurrency-Testimonial-BG-1.webp');}", "hash": "1541a87e-8cf8-40ed-a9f3-d14a0c599f1f", "url": "/wp-content\/uploads\/2025\/07\/Cryptocurrency-Testimonial-BG-1.webp" }, { "selector": ".elementor-106573 .elementor-element.elementor-element-d501524, .elementor-106573 .elementor-element.elementor-element-d501524 > .elementor-background-video-container, .elementor-106573 .elementor-element.elementor-element-d501524 > .e-con-inner > .elementor-background-video-container, .elementor-106573 .elementor-element.elementor-element-d501524 > .elementor-background-slideshow, .elementor-106573 .elementor-element.elementor-element-d501524 > .e-con-inner > .elementor-background-slideshow, .elementor-106573 .elementor-element.elementor-element-d501524 > .elementor-motion-effects-container > .elementor-motion-effects-layer", "style": ".elementor-106573 .elementor-element.elementor-element-d501524::before, .elementor-106573 .elementor-element.elementor-element-d501524 > .elementor-background-video-container::before, .elementor-106573 .elementor-element.elementor-element-d501524 > .e-con-inner > .elementor-background-video-container::before, .elementor-106573 .elementor-element.elementor-element-d501524 > .elementor-background-slideshow::before, .elementor-106573 .elementor-element.elementor-element-d501524 > .e-con-inner > .elementor-background-slideshow::before, .elementor-106573 .elementor-element.elementor-element-d501524 > .elementor-motion-effects-container > .elementor-motion-effects-layer::before{--wpr-bg-7cbba8ef-bc49-4f48-83bc-e8598719556b: url('/wp-content\/uploads\/2025\/07\/Cryptocurrency-Testimonial-BG-1.webp');}", "hash": "7cbba8ef-bc49-4f48-83bc-e8598719556b", "url": "/wp-content\/uploads\/2025\/07\/Cryptocurrency-Testimonial-BG-1.webp" }]; const rocket_excluded_pairs = [];</script>
 
+	
 	<link rel="stylesheet" href="/css/style.css">
 	<script src="/js/head-loader.js"></script>
-
-
 </head>
 
 <body itemtype='https://schema.org/WebPage' itemscope='itemscope'
 	class="home wp-singular page-template page-template-elementor_theme page page-id-40768 wp-custom-logo wp-embed-responsive wp-theme-astra ast-header-break-point ast-page-builder-template ast-no-sidebar astra-4.11.15 group-blog ast-single-post ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header elementor-page-106573 elementor-default elementor-kit-86100 elementor-page elementor-page-40768">
 	<div class="hfeed site" id="page">
-		<header></header>
+			
+<header></header>
+
 
 		<div id="content" class="site-content">
 			<div class="ast-container">
@@ -362,21 +363,21 @@
 																			data-id="03a24d8" data-element_type="widget"
 																			data-widget_type="image.default">
 																			belum <a href="/konsultasi-umroh/">
-																				
-																			<img width="768" height="960"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20960'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-16058"
-																				alt=""
-																				data-lazy-srcset="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 768w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 240w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 640w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1229w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1600w"
-																				data-lazy-sizes="(max-width: 768px) 100vw, 768px"
-																				data-lazy-src="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp" /><noscript><img
-																					loading="lazy" width="768"
-																					height="960"
-																					src="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp"
+
+																				<img width="768" height="960"
+																					src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20960'%3E%3C/svg%3E"
 																					class="attachment-medium_large size-medium_large wp-image-16058"
 																					alt=""
-																					srcset="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 768w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 240w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 640w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1229w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1600w"
-																					sizes="(max-width: 768px) 100vw, 768px" /></noscript>
+																					data-lazy-srcset="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 768w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 240w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 640w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1229w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1600w"
+																					data-lazy-sizes="(max-width: 768px) 100vw, 768px"
+																					data-lazy-src="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp" /><noscript><img
+																						loading="lazy" width="768"
+																						height="960"
+																						src="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp"
+																						class="attachment-medium_large size-medium_large wp-image-16058"
+																						alt=""
+																						srcset="/wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 768w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 240w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 640w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1229w, /wp-content/uploads/2025/04/Umroh-Plus-Turki-03-Des-2025-web-scaled-1-768x960.webp 1600w"
+																						sizes="(max-width: 768px) 100vw, 768px" /></noscript>
 																			</a>
 
 																		</div>
@@ -8741,1106 +8742,1121 @@
 										</div>
 									</div>
 								</div>
-						
 
 
-						<div class="elementor-element elementor-element-5dbc784 e-flex e-con-boxed e-con e-parent"
-							data-id="5dbc784" data-element_type="container"
-							data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-							<div class="e-con-inner">
-								<div class="elementor-element elementor-element-d901830 e-con-full e-flex e-con e-child"
-									data-id="d901830" data-element_type="container">
-									<div class="elementor-element elementor-element-a6c1e84 elementor-widget__width-initial elementor-widget elementor-widget-heading"
-										data-id="a6c1e84" data-element_type="widget" data-widget_type="heading.default">
-										<h2 class="elementor-heading-title elementor-size-default">Rabbanitour,
-											Travel Umroh &amp; Haji Terbaik dan Terpercaya</h2>
-									</div>
-									<div class="elementor-element elementor-element-58e8fe4 elementor-widget elementor-widget-text-editor"
-										data-id="58e8fe4" data-element_type="widget"
-										data-widget_type="text-editor.default">
-										<p>Salah satu dari 5 Travel Umroh Terbaik BPW beserta Amphuri dan Himpuh
-											yang menandatangani MOU dengan <a href="https://sta.gov.sa/en/home">Saudi
-												Tourism Authority</a> untuk
-											mempromosikan wisata Saudi.</p>
-										<p><a href="/">Rabbanitour</a> juga telah
-											berpengalaman selama puluhan tahun memberangkatkan jamaah ke Tanah Suci
-											dengan fasilitas terbaik untuk Keamanan &amp; Kenyamanan Jamaah.</p>
-									</div>
-									<div class="elementor-element elementor-element-37967aa elementor-mobile-align-center elementor-widget elementor-widget-button"
-										data-id="37967aa" data-element_type="widget" data-widget_type="button.default">
-										<a class="elementor-button elementor-button-link elementor-size-sm"
-											href="/konsultasi-umroh/">
-											<span class="elementor-button-content-wrapper">
-												<span class="elementor-button-icon">
-													<svg aria-hidden="true" class="e-font-icon-svg e-fab-whatsapp"
-														viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-														<path
-															d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
-														</path>
-													</svg> </span>
-												<span class="elementor-button-text">Konsultasi Gratis</span>
-											</span>
-										</a>
-									</div>
-								</div>
-								<div class="elementor-element elementor-element-c2b52fa e-con-full e-flex e-con e-child"
-									data-id="c2b52fa" data-element_type="container">
-									<div class="elementor-element elementor-element-c92a7a8 elementor-widget__width-initial elementor-widget elementor-widget-image"
-										data-id="c92a7a8" data-element_type="widget" data-widget_type="image.default">
-										<img width="1706" height="1707"
-											src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201706%201707'%3E%3C/svg%3E"
-											class="attachment-full size-full wp-image-105216"
-											alt="rabbanitour, travel umroh"
-											data-lazy-srcset="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1706w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 300w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 800w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 150w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 768w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1536w"
-											data-lazy-sizes="(max-width: 1706px) 100vw, 1706px"
-											data-lazy-src="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp" /><noscript><img
-												loading="lazy" width="1706" height="1707"
-												src="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp"
-												class="attachment-full size-full wp-image-105216"
-												alt="rabbanitour, travel umroh"
-												srcset="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1706w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 300w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 800w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 150w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 768w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1536w"
-												sizes="(max-width: 1706px) 100vw, 1706px" /></noscript>
-									</div>
-									<div class="elementor-element elementor-element-e7a221d elementor-widget__width-initial elementor-absolute elementor-invisible elementor-widget elementor-widget-image"
-										data-id="e7a221d" data-element_type="widget"
-										data-settings="{&quot;_position&quot;:&quot;absolute&quot;,&quot;_animation&quot;:&quot;tada&quot;}"
-										data-widget_type="image.default">
-										<img width="1707" height="1707"
-											src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201707%201707'%3E%3C/svg%3E"
-											class="attachment-full size-full wp-image-105217"
-											alt="rabbanitour, travel umroh"
-											data-lazy-srcset="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1707w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 300w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 800w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 150w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 768w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1536w"
-											data-lazy-sizes="(max-width: 1707px) 100vw, 1707px"
-											data-lazy-src="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp" /><noscript><img
-												loading="lazy" width="1707" height="1707"
-												src="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp"
-												class="attachment-full size-full wp-image-105217"
-												alt="rabbanitour, travel umroh"
-												srcset="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1707w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 300w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 800w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 150w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 768w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1536w"
-												sizes="(max-width: 1707px) 100vw, 1707px" /></noscript>
-									</div>
-									<div class="elementor-element elementor-element-62e86e9 elementor-widget__width-initial elementor-absolute elementor-invisible elementor-widget elementor-widget-image"
-										data-id="62e86e9" data-element_type="widget"
-										data-settings="{&quot;_position&quot;:&quot;absolute&quot;,&quot;_animation&quot;:&quot;bounceIn&quot;}"
-										data-widget_type="image.default">
-										<img width="342" height="94"
-											src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20342%2094'%3E%3C/svg%3E"
-											class="attachment-large size-large wp-image-105076" alt=""
-											data-lazy-src="/wp-content/uploads/2025/07/cropped-rabbanitour.png" /><noscript><img
-												loading="lazy" width="342" height="94"
-												src="/wp-content/uploads/2025/07/cropped-rabbanitour.png"
-												class="attachment-large size-large wp-image-105076" alt="" /></noscript>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="elementor-element elementor-element-7d9e6db e-flex e-con-boxed e-con e-parent"
-							data-id="7d9e6db" data-element_type="container">
-							<div class="e-con-inner">
-								<div class="elementor-element elementor-element-4d85997 e-flex e-con-boxed e-con e-child"
-									data-id="4d85997" data-element_type="container">
+
+								<div class="elementor-element elementor-element-5dbc784 e-flex e-con-boxed e-con e-parent"
+									data-id="5dbc784" data-element_type="container"
+									data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 									<div class="e-con-inner">
-										<div class="elementor-element elementor-element-237faa2 elementor-widget__width-initial elementor-widget elementor-widget-heading"
-											data-id="237faa2" data-element_type="widget"
-											data-widget_type="heading.default">
-											<h2 class="elementor-heading-title elementor-size-default">Testimoni
-												Jamaah Umroh</h2>
+										<div class="elementor-element elementor-element-d901830 e-con-full e-flex e-con e-child"
+											data-id="d901830" data-element_type="container">
+											<div class="elementor-element elementor-element-a6c1e84 elementor-widget__width-initial elementor-widget elementor-widget-heading"
+												data-id="a6c1e84" data-element_type="widget"
+												data-widget_type="heading.default">
+												<h2 class="elementor-heading-title elementor-size-default">Rabbanitour,
+													Travel Umroh &amp; Haji Terbaik dan Terpercaya</h2>
+											</div>
+											<div class="elementor-element elementor-element-58e8fe4 elementor-widget elementor-widget-text-editor"
+												data-id="58e8fe4" data-element_type="widget"
+												data-widget_type="text-editor.default">
+												<p>Salah satu dari 5 Travel Umroh Terbaik BPW beserta Amphuri dan Himpuh
+													yang menandatangani MOU dengan <a
+														href="https://sta.gov.sa/en/home">Saudi
+														Tourism Authority</a> untuk
+													mempromosikan wisata Saudi.</p>
+												<p><a href="/">Rabbanitour</a> juga telah
+													berpengalaman selama puluhan tahun memberangkatkan jamaah ke Tanah
+													Suci
+													dengan fasilitas terbaik untuk Keamanan &amp; Kenyamanan Jamaah.</p>
+											</div>
+											<div class="elementor-element elementor-element-37967aa elementor-mobile-align-center elementor-widget elementor-widget-button"
+												data-id="37967aa" data-element_type="widget"
+												data-widget_type="button.default">
+												<a class="elementor-button elementor-button-link elementor-size-sm"
+													href="/konsultasi-umroh/">
+													<span class="elementor-button-content-wrapper">
+														<span class="elementor-button-icon">
+															<svg aria-hidden="true"
+																class="e-font-icon-svg e-fab-whatsapp"
+																viewBox="0 0 448 512"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
+																</path>
+															</svg> </span>
+														<span class="elementor-button-text">Konsultasi Gratis</span>
+													</span>
+												</a>
+											</div>
 										</div>
-										<div class="elementor-element elementor-element-25859a9 elementor-widget__width-initial elementor-widget elementor-widget-text-editor"
-											data-id="25859a9" data-element_type="widget"
-											data-widget_type="text-editor.default">
-											<p>Rabbanitour menyediakan banyak pilihan paket umroh sesuai kebutuhan
-												Anda dan Keluarga.</p>
-										</div>
-									</div>
-								</div>
-								<div class="elementor-element elementor-element-e4dca9c e-flex e-con-boxed e-con e-child"
-									data-id="e4dca9c" data-element_type="container">
-									<div class="e-con-inner">
-										<div class="elementor-element elementor-element-01cb1c3 elementor-widget elementor-widget-image-carousel"
-											data-id="01cb1c3" data-element_type="widget"
-											data-settings="{&quot;slides_to_show&quot;:&quot;5&quot;,&quot;slides_to_show_tablet&quot;:&quot;4&quot;,&quot;slides_to_show_mobile&quot;:&quot;2&quot;,&quot;slides_to_scroll&quot;:&quot;1&quot;,&quot;navigation&quot;:&quot;none&quot;,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;infinite&quot;:&quot;yes&quot;,&quot;speed&quot;:500,&quot;image_spacing_custom&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:20,&quot;sizes&quot;:[]},&quot;image_spacing_custom_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;image_spacing_custom_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]}}"
-											data-widget_type="image-carousel.default">
-											<div class="elementor-image-carousel-wrapper swiper" role="region"
-												aria-roledescription="carousel" aria-label="Karosel Gambar" dir="ltr">
-												<div class="elementor-image-carousel swiper-wrapper" aria-live="off">
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="1 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/2333.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/2333.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="2 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/2.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/2.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="3 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/1.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/1.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="4 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/3.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/3.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="5 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/2122.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/2122.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="6 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/4.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/4.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="7 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/5.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/5.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="8 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="rabbanitour, travel umroh"
-																data-lazy-src="/wp-content/uploads/2024/06/2112.jpg" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/06/2112.jpg"
-																	alt="rabbanitour, travel umroh" /></noscript>
-														</figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="9 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="2333.webp"
-																data-lazy-src="/wp-content/uploads/2024/07/2333.webp" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/07/2333.webp"
-																	alt="2333.webp" /></noscript></figure>
-													</div>
-													<div class="swiper-slide" role="group" aria-roledescription="slide"
-														aria-label="10 of 10">
-														<figure class="swiper-slide-inner"><img
-																class="swiper-slide-image"
-																src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-																alt="2112.webp"
-																data-lazy-src="/wp-content/uploads/2024/07/2112.webp" /><noscript><img
-																	class="swiper-slide-image"
-																	src="/wp-content/uploads/2024/07/2112.webp"
-																	alt="2112.webp" /></noscript></figure>
-													</div>
-												</div>
-
+										<div class="elementor-element elementor-element-c2b52fa e-con-full e-flex e-con e-child"
+											data-id="c2b52fa" data-element_type="container">
+											<div class="elementor-element elementor-element-c92a7a8 elementor-widget__width-initial elementor-widget elementor-widget-image"
+												data-id="c92a7a8" data-element_type="widget"
+												data-widget_type="image.default">
+												<img width="1706" height="1707"
+													src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201706%201707'%3E%3C/svg%3E"
+													class="attachment-full size-full wp-image-105216"
+													alt="rabbanitour, travel umroh"
+													data-lazy-srcset="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1706w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 300w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 800w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 150w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 768w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1536w"
+													data-lazy-sizes="(max-width: 1706px) 100vw, 1706px"
+													data-lazy-src="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp" /><noscript><img
+														loading="lazy" width="1706" height="1707"
+														src="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp"
+														class="attachment-full size-full wp-image-105216"
+														alt="rabbanitour, travel umroh"
+														srcset="/wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1706w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 300w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 800w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 150w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 768w, /wp-content/uploads/2025/07/Tentang-Rabbanitour-scaled-e1753069716693.webp 1536w"
+														sizes="(max-width: 1706px) 100vw, 1706px" /></noscript>
+											</div>
+											<div class="elementor-element elementor-element-e7a221d elementor-widget__width-initial elementor-absolute elementor-invisible elementor-widget elementor-widget-image"
+												data-id="e7a221d" data-element_type="widget"
+												data-settings="{&quot;_position&quot;:&quot;absolute&quot;,&quot;_animation&quot;:&quot;tada&quot;}"
+												data-widget_type="image.default">
+												<img width="1707" height="1707"
+													src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201707%201707'%3E%3C/svg%3E"
+													class="attachment-full size-full wp-image-105217"
+													alt="rabbanitour, travel umroh"
+													data-lazy-srcset="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1707w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 300w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 800w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 150w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 768w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1536w"
+													data-lazy-sizes="(max-width: 1707px) 100vw, 1707px"
+													data-lazy-src="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp" /><noscript><img
+														loading="lazy" width="1707" height="1707"
+														src="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp"
+														class="attachment-full size-full wp-image-105217"
+														alt="rabbanitour, travel umroh"
+														srcset="/wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1707w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 300w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 800w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 150w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 768w, /wp-content/uploads/2025/07/Rabbanitour-dan-STA-scaled-e1753069000764.webp 1536w"
+														sizes="(max-width: 1707px) 100vw, 1707px" /></noscript>
+											</div>
+											<div class="elementor-element elementor-element-62e86e9 elementor-widget__width-initial elementor-absolute elementor-invisible elementor-widget elementor-widget-image"
+												data-id="62e86e9" data-element_type="widget"
+												data-settings="{&quot;_position&quot;:&quot;absolute&quot;,&quot;_animation&quot;:&quot;bounceIn&quot;}"
+												data-widget_type="image.default">
+												<img width="342" height="94"
+													src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20342%2094'%3E%3C/svg%3E"
+													class="attachment-large size-large wp-image-105076" alt=""
+													data-lazy-src="/wp-content/uploads/2025/07/cropped-rabbanitour.png" /><noscript><img
+														loading="lazy" width="342" height="94"
+														src="/wp-content/uploads/2025/07/cropped-rabbanitour.png"
+														class="attachment-large size-large wp-image-105076"
+														alt="" /></noscript>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="elementor-element elementor-element-d501524 e-flex e-con-boxed e-con e-parent"
-							data-id="d501524" data-element_type="container"
-							data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-							<div class="e-con-inner">
-								<div class="elementor-element elementor-element-fd7b8c2 e-con-full e-flex e-con e-child"
-									data-id="fd7b8c2" data-element_type="container">
-									<div class="elementor-element elementor-element-9a9fc4f elementor-widget elementor-widget-image"
-										data-id="9a9fc4f" data-element_type="widget" data-widget_type="image.default">
-										<img width="600" height="800"
-											src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20600%20800'%3E%3C/svg%3E"
-											class="attachment-large size-large wp-image-105453" alt=""
-											data-lazy-srcset="/wp-content/uploads/2024/09/Haji-Khusus-4-600x800.jpg 600w, /wp-content/uploads/2024/09/Haji-Khusus-4-225x300.jpg 225w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 768w, /wp-content/uploads/2024/09/Haji-Khusus-4.jpg 960w"
-											data-lazy-sizes="(max-width: 600px) 100vw, 600px"
-											data-lazy-src="/wp-content/uploads/2024/09/Haji-Khusus-4-600x800.jpg" /><noscript><img
-												loading="lazy" width="600" height="800"
-												src="/wp-content/uploads/2024/09/Haji-Khusus-4-600x800.jpg"
-												class="attachment-large size-large wp-image-105453" alt=""
-												srcset="/wp-content/uploads/2024/09/Haji-Khusus-4-600x800.jpg 600w, /wp-content/uploads/2024/09/Haji-Khusus-4-225x300.jpg 225w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 768w, /wp-content/uploads/2024/09/Haji-Khusus-4.jpg 960w"
-												sizes="(max-width: 600px) 100vw, 600px" /></noscript>
-									</div>
-									<div class="elementor-element elementor-element-a70af65 elementor-widget elementor-widget-image"
-										data-id="a70af65" data-element_type="widget" data-widget_type="image.default">
-										<img width="600" height="800"
-											src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20600%20800'%3E%3C/svg%3E"
-											class="attachment-large size-large wp-image-106649" alt=""
-											data-lazy-srcset="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp 600w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-225x300.webp 225w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1.webp 768w"
-											data-lazy-sizes="(max-width: 600px) 100vw, 600px"
-											data-lazy-src="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp" /><noscript><img
-												loading="lazy" width="600" height="800"
-												src="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp"
-												class="attachment-large size-large wp-image-106649" alt=""
-												srcset="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp 600w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-225x300.webp 225w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1.webp 768w"
-												sizes="(max-width: 600px) 100vw, 600px" /></noscript>
-									</div>
-								</div>
-								<div class="elementor-element elementor-element-f945d9c e-con-full e-flex e-con e-child"
-									data-id="f945d9c" data-element_type="container">
-									<div class="elementor-element elementor-element-de6bc5e elementor-widget__width-initial elementor-widget elementor-widget-heading"
-										data-id="de6bc5e" data-element_type="widget" data-widget_type="heading.default">
-										<h2 class="elementor-heading-title elementor-size-default">Yuk buruan daftar
-											Haji Khusus, resmi pemerintah khusus untuk 100 orang pendaftar pertama.
-										</h2>
-									</div>
-									<div class="elementor-element elementor-element-2d05561 elementor-widget elementor-widget-text-editor"
-										data-id="2d05561" data-element_type="widget"
-										data-widget_type="text-editor.default">
-										Rasakan kenyamanan dan ketenangan beribadah dengan layanan terbaik kami.
-										Dari akomodasi mewah hingga transportasi eksklusif, semua dirancang untuk
-										kenyamanan Anda. </div>
-									<div class="elementor-element elementor-element-931f806 elementor-mobile-align-center elementor-widget elementor-widget-button"
-										data-id="931f806" data-element_type="widget" data-widget_type="button.default">
-										<a class="elementor-button elementor-button-link elementor-size-sm"
-											href="/konsultasi-umroh/">
-											<span class="elementor-button-content-wrapper">
-												<span class="elementor-button-icon">
-													<svg aria-hidden="true" class="e-font-icon-svg e-fab-whatsapp"
-														viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-														<path
-															d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
-														</path>
-													</svg> </span>
-												<span class="elementor-button-text">Detail Haji Khusus</span>
-											</span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="elementor-element elementor-element-5afbe29 e-flex e-con-boxed e-con e-parent"
-							data-id="5afbe29" data-element_type="container">
-							<div class="e-con-inner">
-								<div class="elementor-element elementor-element-c456201 e-con-full e-flex e-con e-child"
-									data-id="c456201" data-element_type="container">
-									<div class="elementor-element elementor-element-fc49d3b elementor-widget__width-initial elementor-widget elementor-widget-heading"
-										data-id="fc49d3b" data-element_type="widget" data-widget_type="heading.default">
-										<h2 class="elementor-heading-title elementor-size-default">Dokumentasi Umroh
-											Bersama Rabbanitour</h2>
-									</div>
-									<div class="elementor-element elementor-element-4bd270e elementor-widget elementor-widget-text-editor"
-										data-id="4bd270e" data-element_type="widget"
-										data-widget_type="text-editor.default">
-										<p>Rabbanitour menyediakan banyak pilihan paket umroh sesuai kebutuhan Anda
-											dan Keluarga.</p>
-									</div>
-								</div>
-								<div class="elementor-element elementor-element-29e6e68 e-con-full e-flex e-con e-child"
-									data-id="29e6e68" data-element_type="container">
-									<div class="elementor-element elementor-element-e204332 elementor-widget elementor-widget-video"
-										data-id="e204332" data-element_type="widget"
-										data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=a7ia8XQBQIo&amp;pp=0gcJCckJAYcqIYzv&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}"
-										data-widget_type="video.default">
-										<div class="elementor-wrapper elementor-open-inline">
-											<div class="elementor-video"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="elementor-element elementor-element-dd2a209 e-flex e-con-boxed e-con e-parent"
-							data-id="dd2a209" data-element_type="container">
-							<div class="e-con-inner">
-								<div class="elementor-element elementor-element-881c044 e-flex e-con-boxed e-con e-child"
-									data-id="881c044" data-element_type="container">
+								<div class="elementor-element elementor-element-7d9e6db e-flex e-con-boxed e-con e-parent"
+									data-id="7d9e6db" data-element_type="container">
 									<div class="e-con-inner">
-										<div class="elementor-element elementor-element-c6e5d72 elementor-widget__width-initial elementor-widget elementor-widget-heading"
-											data-id="c6e5d72" data-element_type="widget"
-											data-widget_type="heading.default">
-											<h2 class="elementor-heading-title elementor-size-default">Artikel
-												Seputar Umroh dan Haji</h2>
+										<div class="elementor-element elementor-element-4d85997 e-flex e-con-boxed e-con e-child"
+											data-id="4d85997" data-element_type="container">
+											<div class="e-con-inner">
+												<div class="elementor-element elementor-element-237faa2 elementor-widget__width-initial elementor-widget elementor-widget-heading"
+													data-id="237faa2" data-element_type="widget"
+													data-widget_type="heading.default">
+													<h2 class="elementor-heading-title elementor-size-default">Testimoni
+														Jamaah Umroh</h2>
+												</div>
+												<div class="elementor-element elementor-element-25859a9 elementor-widget__width-initial elementor-widget elementor-widget-text-editor"
+													data-id="25859a9" data-element_type="widget"
+													data-widget_type="text-editor.default">
+													<p>Rabbanitour menyediakan banyak pilihan paket umroh sesuai
+														kebutuhan
+														Anda dan Keluarga.</p>
+												</div>
+											</div>
 										</div>
-										<div class="elementor-element elementor-element-cb357f0 elementor-widget__width-initial elementor-widget elementor-widget-text-editor"
-											data-id="cb357f0" data-element_type="widget"
-											data-widget_type="text-editor.default">
-											<p>Rabbanitour menyediakan banyak pilihan paket umroh sesuai kebutuhan
-												Anda dan Keluarga.</p>
-										</div>
-									</div>
-								</div>
-								<div class="elementor-element elementor-element-66aa6ed e-flex e-con-boxed e-con e-child"
-									data-id="66aa6ed" data-element_type="container">
-									<div class="e-con-inner">
-										<div class="elementor-element elementor-element-2913030 elementor-grid-4 elementor-grid-tablet-3 elementor-grid-mobile-1 elementor-widget elementor-widget-loop-grid"
-											data-id="2913030" data-element_type="widget"
-											data-settings="{&quot;template_id&quot;:&quot;106607&quot;,&quot;columns&quot;:4,&quot;columns_tablet&quot;:3,&quot;row_gap&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;row_gap_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;row_gap_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;_skin&quot;:&quot;post&quot;,&quot;columns_mobile&quot;:&quot;1&quot;,&quot;edit_handle_selector&quot;:&quot;[data-elementor-type=\&quot;loop-item\&quot;]&quot;}"
-											data-widget_type="loop-grid.post">
-											<div class="elementor-widget-container">
-												<div class="elementor-loop-container elementor-grid" role="list">
+										<div class="elementor-element elementor-element-e4dca9c e-flex e-con-boxed e-con e-child"
+											data-id="e4dca9c" data-element_type="container">
+											<div class="e-con-inner">
+												<div class="elementor-element elementor-element-01cb1c3 elementor-widget elementor-widget-image-carousel"
+													data-id="01cb1c3" data-element_type="widget"
+													data-settings="{&quot;slides_to_show&quot;:&quot;5&quot;,&quot;slides_to_show_tablet&quot;:&quot;4&quot;,&quot;slides_to_show_mobile&quot;:&quot;2&quot;,&quot;slides_to_scroll&quot;:&quot;1&quot;,&quot;navigation&quot;:&quot;none&quot;,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;infinite&quot;:&quot;yes&quot;,&quot;speed&quot;:500,&quot;image_spacing_custom&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:20,&quot;sizes&quot;:[]},&quot;image_spacing_custom_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;image_spacing_custom_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]}}"
+													data-widget_type="image-carousel.default">
+													<div class="elementor-image-carousel-wrapper swiper" role="region"
+														aria-roledescription="carousel" aria-label="Karosel Gambar"
+														dir="ltr">
+														<div class="elementor-image-carousel swiper-wrapper"
+															aria-live="off">
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="1 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/2333.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/2333.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="2 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/2.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/2.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="3 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/1.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/1.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="4 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/3.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/3.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="5 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/2122.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/2122.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="6 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/4.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/4.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="7 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/5.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/5.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="8 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="rabbanitour, travel umroh"
+																		data-lazy-src="/wp-content/uploads/2024/06/2112.jpg" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/06/2112.jpg"
+																			alt="rabbanitour, travel umroh" /></noscript>
+																</figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="9 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="2333.webp"
+																		data-lazy-src="/wp-content/uploads/2024/07/2333.webp" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/07/2333.webp"
+																			alt="2333.webp" /></noscript></figure>
+															</div>
+															<div class="swiper-slide" role="group"
+																aria-roledescription="slide" aria-label="10 of 10">
+																<figure class="swiper-slide-inner"><img
+																		class="swiper-slide-image"
+																		src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+																		alt="2112.webp"
+																		data-lazy-src="/wp-content/uploads/2024/07/2112.webp" /><noscript><img
+																			class="swiper-slide-image"
+																			src="/wp-content/uploads/2024/07/2112.webp"
+																			alt="2112.webp" /></noscript></figure>
+															</div>
+														</div>
 
-													<div data-elementor-type="loop-item" data-elementor-id="106607"
-														class="elementor elementor-106607 e-loop-item e-loop-item-105760 post-105760 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
-														data-elementor-post-type="elementor_library"
-														data-custom-edit-handle="1">
-														<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
-															data-id="61102852" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
-																	data-id="2cb8d007" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
-																		data-id="483d3f6e" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a
-																			href="/tips-mengecek-travel-umroh-yang-terdaftar-di/">
-																			<img width="768" height="960"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20960'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-105759"
-																				alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
-																				data-lazy-srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
-																				data-lazy-sizes="(max-width: 768px) 100vw, 768px"
-																				data-lazy-src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp" /><noscript><img
-																					loading="lazy" width="768"
-																					height="960"
-																					src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp"
-																					class="attachment-medium_large size-medium_large wp-image-105759"
-																					alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
-																					srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
-																					sizes="(max-width: 768px) 100vw, 768px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
-																		data-id="3cd120ce" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
-																			data-id="6ee10933"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Tips Mengecek Travel Umroh yang
-																				Terdaftar di Kemenag</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
-																			data-id="783d9507"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="3386c946"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																		<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
-																			data-id="22a2cf94"
-																			data-element_type="widget"
-																			data-widget_type="button.default">
-																			<a class="elementor-button elementor-button-link elementor-size-sm"
-																				href="/tips-mengecek-travel-umroh-yang-terdaftar-di/">
-																				<span
-																					class="elementor-button-content-wrapper">
-																					<span
-																						class="elementor-button-text">Selengkapnya</span>
-																				</span>
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
-															data-id="74377e7d" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
-																	data-id="d85cb72" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
-																		data-id="6ca2852" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a href="/konsultasi-umroh/">
-																			<img width="768" height="960"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20960'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-105759"
-																				alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
-																				data-lazy-srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
-																				data-lazy-sizes="(max-width: 768px) 100vw, 768px"
-																				data-lazy-src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp" /><noscript><img
-																					loading="lazy" width="768"
-																					height="960"
-																					src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp"
-																					class="attachment-medium_large size-medium_large wp-image-105759"
-																					alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
-																					srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
-																					sizes="(max-width: 768px) 100vw, 768px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
-																		data-id="8a76071" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
-																			data-id="5039932d"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Tips Mengecek Travel Umroh yang
-																				Terdaftar di Kemenag</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
-																			data-id="5f0cbed3"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="33ce77d4"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div data-elementor-type="loop-item" data-elementor-id="106607"
-														class="elementor elementor-106607 e-loop-item e-loop-item-12594 post-12594 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
-														data-elementor-post-type="elementor_library"
-														data-custom-edit-handle="1">
-														<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
-															data-id="61102852" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
-																	data-id="2cb8d007" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
-																		data-id="483d3f6e" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a href="/cara-membuat-paspor-umroh-3-kata/">
-																			<img width="500" height="500"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-104564"
-																				alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																				data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																				data-lazy-sizes="(max-width: 500px) 100vw, 500px"
-																				data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
-																					loading="lazy" width="500"
-																					height="500"
-																					src="/wp-content/uploads/2025/07/3.webp"
-																					class="attachment-medium_large size-medium_large wp-image-104564"
-																					alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																					srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																					sizes="(max-width: 500px) 100vw, 500px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
-																		data-id="3cd120ce" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
-																			data-id="6ee10933"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Cara Membuat Paspor Umroh 3 Kata
-																			</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
-																			data-id="783d9507"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="3386c946"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																		<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
-																			data-id="22a2cf94"
-																			data-element_type="widget"
-																			data-widget_type="button.default">
-																			<a class="elementor-button elementor-button-link elementor-size-sm"
-																				href="/cara-membuat-paspor-umroh-3-kata/">
-																				<span
-																					class="elementor-button-content-wrapper">
-																					<span
-																						class="elementor-button-text">Selengkapnya</span>
-																				</span>
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
-															data-id="74377e7d" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
-																	data-id="d85cb72" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
-																		data-id="6ca2852" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a href="/konsultasi-umroh/">
-																			<img width="500" height="500"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-104564"
-																				alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																				data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																				data-lazy-sizes="(max-width: 500px) 100vw, 500px"
-																				data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
-																					loading="lazy" width="500"
-																					height="500"
-																					src="/wp-content/uploads/2025/07/3.webp"
-																					class="attachment-medium_large size-medium_large wp-image-104564"
-																					alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																					srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																					sizes="(max-width: 500px) 100vw, 500px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
-																		data-id="8a76071" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
-																			data-id="5039932d"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Cara Membuat Paspor Umroh 3 Kata
-																			</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
-																			data-id="5f0cbed3"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="33ce77d4"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div data-elementor-type="loop-item" data-elementor-id="106607"
-														class="elementor elementor-106607 e-loop-item e-loop-item-12601 post-12601 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
-														data-elementor-post-type="elementor_library"
-														data-custom-edit-handle="1">
-														<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
-															data-id="61102852" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
-																	data-id="2cb8d007" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
-																		data-id="483d3f6e" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a
-																			href="/hukum-niat-umroh-untuk-orang-yang-sudah-meninggal/">
-																			<img width="500" height="500"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-104564"
-																				alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																				data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																				data-lazy-sizes="(max-width: 500px) 100vw, 500px"
-																				data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
-																					loading="lazy" width="500"
-																					height="500"
-																					src="/wp-content/uploads/2025/07/3.webp"
-																					class="attachment-medium_large size-medium_large wp-image-104564"
-																					alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																					srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																					sizes="(max-width: 500px) 100vw, 500px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
-																		data-id="3cd120ce" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
-																			data-id="6ee10933"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Hukum Niat Umroh Untuk Orang Yang
-																				Sudah Meninggal?</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
-																			data-id="783d9507"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="3386c946"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																		<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
-																			data-id="22a2cf94"
-																			data-element_type="widget"
-																			data-widget_type="button.default">
-																			<a class="elementor-button elementor-button-link elementor-size-sm"
-																				href="/hukum-niat-umroh-untuk-orang-yang-sudah-meninggal/">
-																				<span
-																					class="elementor-button-content-wrapper">
-																					<span
-																						class="elementor-button-text">Selengkapnya</span>
-																				</span>
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
-															data-id="74377e7d" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
-																	data-id="d85cb72" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
-																		data-id="6ca2852" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a href="/konsultasi-umroh/">
-																			<img width="500" height="500"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-104564"
-																				alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																				data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																				data-lazy-sizes="(max-width: 500px) 100vw, 500px"
-																				data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
-																					loading="lazy" width="500"
-																					height="500"
-																					src="/wp-content/uploads/2025/07/3.webp"
-																					class="attachment-medium_large size-medium_large wp-image-104564"
-																					alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																					srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																					sizes="(max-width: 500px) 100vw, 500px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
-																		data-id="8a76071" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
-																			data-id="5039932d"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Hukum Niat Umroh Untuk Orang Yang
-																				Sudah Meninggal?</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
-																			data-id="5f0cbed3"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="33ce77d4"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div data-elementor-type="loop-item" data-elementor-id="106607"
-														class="elementor elementor-106607 e-loop-item e-loop-item-12646 post-12646 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
-														data-elementor-post-type="elementor_library"
-														data-custom-edit-handle="1">
-														<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
-															data-id="61102852" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
-																	data-id="2cb8d007" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
-																		data-id="483d3f6e" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a href="/visa-umroh/">
-																			<img width="500" height="500"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-104564"
-																				alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																				data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																				data-lazy-sizes="(max-width: 500px) 100vw, 500px"
-																				data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
-																					loading="lazy" width="500"
-																					height="500"
-																					src="/wp-content/uploads/2025/07/3.webp"
-																					class="attachment-medium_large size-medium_large wp-image-104564"
-																					alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																					srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																					sizes="(max-width: 500px) 100vw, 500px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
-																		data-id="3cd120ce" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
-																			data-id="6ee10933"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Berita Seputar Umroh – Syarat dan
-																				Biaya Visa Umroh</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
-																			data-id="783d9507"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="3386c946"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																		<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
-																			data-id="22a2cf94"
-																			data-element_type="widget"
-																			data-widget_type="button.default">
-																			<a class="elementor-button elementor-button-link elementor-size-sm"
-																				href="/visa-umroh/">
-																				<span
-																					class="elementor-button-content-wrapper">
-																					<span
-																						class="elementor-button-text">Selengkapnya</span>
-																				</span>
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
-															data-id="74377e7d" data-element_type="container">
-															<div class="e-con-inner">
-																<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
-																	data-id="d85cb72" data-element_type="container"
-																	data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																	<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
-																		data-id="6ca2852" data-element_type="widget"
-																		data-widget_type="image.default">
-																		<a href="/konsultasi-umroh/">
-																			<img width="500" height="500"
-																				src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
-																				class="attachment-medium_large size-medium_large wp-image-104564"
-																				alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																				data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																				data-lazy-sizes="(max-width: 500px) 100vw, 500px"
-																				data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
-																					loading="lazy" width="500"
-																					height="500"
-																					src="/wp-content/uploads/2025/07/3.webp"
-																					class="attachment-medium_large size-medium_large wp-image-104564"
-																					alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
-																					srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
-																					sizes="(max-width: 500px) 100vw, 500px" /></noscript>
-																		</a>
-																	</div>
-																	<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
-																		data-id="8a76071" data-element_type="container"
-																		data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-																		<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
-																			data-id="5039932d"
-																			data-element_type="widget"
-																			data-widget_type="heading.default">
-																			<h4
-																				class="elementor-heading-title elementor-size-default">
-																				Berita Seputar Umroh – Syarat dan
-																				Biaya Visa Umroh</h4>
-																		</div>
-																		<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
-																			data-id="5f0cbed3"
-																			data-element_type="container">
-																			<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
-																				data-id="33ce77d4"
-																				data-element_type="widget"
-																				data-widget_type="icon-list.default">
-																				<ul class="elementor-icon-list-items">
-																					<li
-																						class="elementor-icon-list-item">
-																						<span
-																							class="elementor-icon-list-icon">
-																							<svg xmlns="http://www.w3.org/2000/svg"
-																								id="Layer_1"
-																								data-name="Layer 1"
-																								viewBox="0 0 24 24"
-																								width="512"
-																								height="512">
-																								<path
-																									d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
-																								</path>
-																							</svg> </span>
-																						<span
-																							class="elementor-icon-list-text"><span>Info
-																								Umroh</span></span>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
 													</div>
 												</div>
-
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+								<div class="elementor-element elementor-element-d501524 e-flex e-con-boxed e-con e-parent"
+									data-id="d501524" data-element_type="container"
+									data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+									<div class="e-con-inner">
+										<div class="elementor-element elementor-element-fd7b8c2 e-con-full e-flex e-con e-child"
+											data-id="fd7b8c2" data-element_type="container">
+											<div class="elementor-element elementor-element-9a9fc4f elementor-widget elementor-widget-image"
+												data-id="9a9fc4f" data-element_type="widget"
+												data-widget_type="image.default">
+												<img width="600" height="800"
+													src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20600%20800'%3E%3C/svg%3E"
+													class="attachment-large size-large wp-image-105453" alt=""
+													data-lazy-srcset="/wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 600w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 225w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 768w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 960w"
+													data-lazy-sizes="(max-width: 600px) 100vw, 600px"
+													data-lazy-src="/wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg" /><noscript><img
+														loading="lazy" width="600" height="800"
+														src="/wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg"
+														class="attachment-large size-large wp-image-105453" alt=""
+														srcset="/wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 600w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 225w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 768w, /wp-content/uploads/2024/09/Haji-Khusus-4-768x1024.jpg 960w"
+														sizes="(max-width: 600px) 100vw, 600px" /></noscript>
+											</div>
+											<div class="elementor-element elementor-element-a70af65 elementor-widget elementor-widget-image"
+												data-id="a70af65" data-element_type="widget"
+												data-widget_type="image.default">
+												<img width="600" height="800"
+													src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20600%20800'%3E%3C/svg%3E"
+													class="attachment-large size-large wp-image-106649" alt=""
+													data-lazy-srcset="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp 600w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-225x300.webp 225w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1.webp 768w"
+													data-lazy-sizes="(max-width: 600px) 100vw, 600px"
+													data-lazy-src="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp" /><noscript><img
+														loading="lazy" width="600" height="800"
+														src="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp"
+														class="attachment-large size-large wp-image-106649" alt=""
+														srcset="/wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-600x800.webp 600w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1-225x300.webp 225w, /wp-content/uploads/2025/09/Haji-Khusus-3-768x1024-1.webp 768w"
+														sizes="(max-width: 600px) 100vw, 600px" /></noscript>
+											</div>
+										</div>
+										<div class="elementor-element elementor-element-f945d9c e-con-full e-flex e-con e-child"
+											data-id="f945d9c" data-element_type="container">
+											<div class="elementor-element elementor-element-de6bc5e elementor-widget__width-initial elementor-widget elementor-widget-heading"
+												data-id="de6bc5e" data-element_type="widget"
+												data-widget_type="heading.default">
+												<h2 class="elementor-heading-title elementor-size-default">Yuk buruan
+													daftar
+													Haji Khusus, resmi pemerintah khusus untuk 100 orang pendaftar
+													pertama.
+												</h2>
+											</div>
+											<div class="elementor-element elementor-element-2d05561 elementor-widget elementor-widget-text-editor"
+												data-id="2d05561" data-element_type="widget"
+												data-widget_type="text-editor.default">
+												Rasakan kenyamanan dan ketenangan beribadah dengan layanan terbaik kami.
+												Dari akomodasi mewah hingga transportasi eksklusif, semua dirancang
+												untuk
+												kenyamanan Anda. </div>
+											<div class="elementor-element elementor-element-931f806 elementor-mobile-align-center elementor-widget elementor-widget-button"
+												data-id="931f806" data-element_type="widget"
+												data-widget_type="button.default">
+												<a class="elementor-button elementor-button-link elementor-size-sm"
+													href="/konsultasi-umroh/">
+													<span class="elementor-button-content-wrapper">
+														<span class="elementor-button-icon">
+															<svg aria-hidden="true"
+																class="e-font-icon-svg e-fab-whatsapp"
+																viewBox="0 0 448 512"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
+																</path>
+															</svg> </span>
+														<span class="elementor-button-text">Detail Haji Khusus</span>
+													</span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="elementor-element elementor-element-5afbe29 e-flex e-con-boxed e-con e-parent"
+									data-id="5afbe29" data-element_type="container">
+									<div class="e-con-inner">
+										<div class="elementor-element elementor-element-c456201 e-con-full e-flex e-con e-child"
+											data-id="c456201" data-element_type="container">
+											<div class="elementor-element elementor-element-fc49d3b elementor-widget__width-initial elementor-widget elementor-widget-heading"
+												data-id="fc49d3b" data-element_type="widget"
+												data-widget_type="heading.default">
+												<h2 class="elementor-heading-title elementor-size-default">Dokumentasi
+													Umroh
+													Bersama Rabbanitour</h2>
+											</div>
+											<div class="elementor-element elementor-element-4bd270e elementor-widget elementor-widget-text-editor"
+												data-id="4bd270e" data-element_type="widget"
+												data-widget_type="text-editor.default">
+												<p>Rabbanitour menyediakan banyak pilihan paket umroh sesuai kebutuhan
+													Anda
+													dan Keluarga.</p>
+											</div>
+										</div>
+										<div class="elementor-element elementor-element-29e6e68 e-con-full e-flex e-con e-child"
+											data-id="29e6e68" data-element_type="container">
+											<div class="elementor-element elementor-element-e204332 elementor-widget elementor-widget-video"
+												data-id="e204332" data-element_type="widget"
+												data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=a7ia8XQBQIo&amp;pp=0gcJCckJAYcqIYzv&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}"
+												data-widget_type="video.default">
+												<div class="elementor-wrapper elementor-open-inline">
+													<div class="elementor-video"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="elementor-element elementor-element-dd2a209 e-flex e-con-boxed e-con e-parent"
+									data-id="dd2a209" data-element_type="container">
+									<div class="e-con-inner">
+										<div class="elementor-element elementor-element-881c044 e-flex e-con-boxed e-con e-child"
+											data-id="881c044" data-element_type="container">
+											<div class="e-con-inner">
+												<div class="elementor-element elementor-element-c6e5d72 elementor-widget__width-initial elementor-widget elementor-widget-heading"
+													data-id="c6e5d72" data-element_type="widget"
+													data-widget_type="heading.default">
+													<h2 class="elementor-heading-title elementor-size-default">Artikel
+														Seputar Umroh dan Haji</h2>
+												</div>
+												<div class="elementor-element elementor-element-cb357f0 elementor-widget__width-initial elementor-widget elementor-widget-text-editor"
+													data-id="cb357f0" data-element_type="widget"
+													data-widget_type="text-editor.default">
+													<p>Rabbanitour menyediakan banyak pilihan paket umroh sesuai
+														kebutuhan
+														Anda dan Keluarga.</p>
+												</div>
+											</div>
+										</div>
+										<div class="elementor-element elementor-element-66aa6ed e-flex e-con-boxed e-con e-child"
+											data-id="66aa6ed" data-element_type="container">
+											<div class="e-con-inner">
+												<div class="elementor-element elementor-element-2913030 elementor-grid-4 elementor-grid-tablet-3 elementor-grid-mobile-1 elementor-widget elementor-widget-loop-grid"
+													data-id="2913030" data-element_type="widget"
+													data-settings="{&quot;template_id&quot;:&quot;106607&quot;,&quot;columns&quot;:4,&quot;columns_tablet&quot;:3,&quot;row_gap&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;row_gap_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;row_gap_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;_skin&quot;:&quot;post&quot;,&quot;columns_mobile&quot;:&quot;1&quot;,&quot;edit_handle_selector&quot;:&quot;[data-elementor-type=\&quot;loop-item\&quot;]&quot;}"
+													data-widget_type="loop-grid.post">
+													<div class="elementor-widget-container">
+														<div class="elementor-loop-container elementor-grid"
+															role="list">
+
+															<div data-elementor-type="loop-item"
+																data-elementor-id="106607"
+																class="elementor elementor-106607 e-loop-item e-loop-item-105760 post-105760 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
+																data-elementor-post-type="elementor_library"
+																data-custom-edit-handle="1">
+																<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
+																	data-id="61102852" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
+																			data-id="2cb8d007"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
+																				data-id="483d3f6e"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a
+																					href="/tips-mengecek-travel-umroh-yang-terdaftar-di/">
+																					<img width="768" height="960"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20960'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-105759"
+																						alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
+																						data-lazy-srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
+																						data-lazy-sizes="(max-width: 768px) 100vw, 768px"
+																						data-lazy-src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp" /><noscript><img
+																							loading="lazy" width="768"
+																							height="960"
+																							src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp"
+																							class="attachment-medium_large size-medium_large wp-image-105759"
+																							alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
+																							srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
+																							sizes="(max-width: 768px) 100vw, 768px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
+																				data-id="3cd120ce"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
+																					data-id="6ee10933"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Tips Mengecek Travel Umroh yang
+																						Terdaftar di Kemenag</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
+																					data-id="783d9507"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="3386c946"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																				<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
+																					data-id="22a2cf94"
+																					data-element_type="widget"
+																					data-widget_type="button.default">
+																					<a class="elementor-button elementor-button-link elementor-size-sm"
+																						href="/tips-mengecek-travel-umroh-yang-terdaftar-di/">
+																						<span
+																							class="elementor-button-content-wrapper">
+																							<span
+																								class="elementor-button-text">Selengkapnya</span>
+																						</span>
+																					</a>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
+																	data-id="74377e7d" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
+																			data-id="d85cb72"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
+																				data-id="6ca2852"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a href="/konsultasi-umroh/">
+																					<img width="768" height="960"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20960'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-105759"
+																						alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
+																						data-lazy-srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
+																						data-lazy-sizes="(max-width: 768px) 100vw, 768px"
+																						data-lazy-src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp" /><noscript><img
+																							loading="lazy" width="768"
+																							height="960"
+																							src="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp"
+																							class="attachment-medium_large size-medium_large wp-image-105759"
+																							alt="Tips Mengecek Travel Umroh yang Terdaftar di Kemenag"
+																							srcset="/wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-768x960.webp 768w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-240x300.webp 240w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru-640x800.webp 640w, /wp-content/uploads/2025/08/Aturan-Visa-Umroh-Terbaru.webp 1080w"
+																							sizes="(max-width: 768px) 100vw, 768px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
+																				data-id="8a76071"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
+																					data-id="5039932d"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Tips Mengecek Travel Umroh yang
+																						Terdaftar di Kemenag</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
+																					data-id="5f0cbed3"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="33ce77d4"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div data-elementor-type="loop-item"
+																data-elementor-id="106607"
+																class="elementor elementor-106607 e-loop-item e-loop-item-12594 post-12594 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
+																data-elementor-post-type="elementor_library"
+																data-custom-edit-handle="1">
+																<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
+																	data-id="61102852" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
+																			data-id="2cb8d007"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
+																				data-id="483d3f6e"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a
+																					href="/cara-membuat-paspor-umroh-3-kata/">
+																					<img width="500" height="500"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-104564"
+																						alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																						data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																						data-lazy-sizes="(max-width: 500px) 100vw, 500px"
+																						data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
+																							loading="lazy" width="500"
+																							height="500"
+																							src="/wp-content/uploads/2025/07/3.webp"
+																							class="attachment-medium_large size-medium_large wp-image-104564"
+																							alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																							srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																							sizes="(max-width: 500px) 100vw, 500px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
+																				data-id="3cd120ce"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
+																					data-id="6ee10933"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Cara Membuat Paspor Umroh 3 Kata
+																					</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
+																					data-id="783d9507"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="3386c946"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																				<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
+																					data-id="22a2cf94"
+																					data-element_type="widget"
+																					data-widget_type="button.default">
+																					<a class="elementor-button elementor-button-link elementor-size-sm"
+																						href="/cara-membuat-paspor-umroh-3-kata/">
+																						<span
+																							class="elementor-button-content-wrapper">
+																							<span
+																								class="elementor-button-text">Selengkapnya</span>
+																						</span>
+																					</a>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
+																	data-id="74377e7d" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
+																			data-id="d85cb72"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
+																				data-id="6ca2852"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a href="/konsultasi-umroh/">
+																					<img width="500" height="500"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-104564"
+																						alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																						data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																						data-lazy-sizes="(max-width: 500px) 100vw, 500px"
+																						data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
+																							loading="lazy" width="500"
+																							height="500"
+																							src="/wp-content/uploads/2025/07/3.webp"
+																							class="attachment-medium_large size-medium_large wp-image-104564"
+																							alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																							srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																							sizes="(max-width: 500px) 100vw, 500px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
+																				data-id="8a76071"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
+																					data-id="5039932d"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Cara Membuat Paspor Umroh 3 Kata
+																					</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
+																					data-id="5f0cbed3"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="33ce77d4"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div data-elementor-type="loop-item"
+																data-elementor-id="106607"
+																class="elementor elementor-106607 e-loop-item e-loop-item-12601 post-12601 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
+																data-elementor-post-type="elementor_library"
+																data-custom-edit-handle="1">
+																<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
+																	data-id="61102852" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
+																			data-id="2cb8d007"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
+																				data-id="483d3f6e"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a
+																					href="/hukum-niat-umroh-untuk-orang-yang-sudah-meninggal/">
+																					<img width="500" height="500"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-104564"
+																						alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																						data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																						data-lazy-sizes="(max-width: 500px) 100vw, 500px"
+																						data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
+																							loading="lazy" width="500"
+																							height="500"
+																							src="/wp-content/uploads/2025/07/3.webp"
+																							class="attachment-medium_large size-medium_large wp-image-104564"
+																							alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																							srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																							sizes="(max-width: 500px) 100vw, 500px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
+																				data-id="3cd120ce"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
+																					data-id="6ee10933"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Hukum Niat Umroh Untuk Orang
+																						Yang
+																						Sudah Meninggal?</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
+																					data-id="783d9507"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="3386c946"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																				<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
+																					data-id="22a2cf94"
+																					data-element_type="widget"
+																					data-widget_type="button.default">
+																					<a class="elementor-button elementor-button-link elementor-size-sm"
+																						href="/hukum-niat-umroh-untuk-orang-yang-sudah-meninggal/">
+																						<span
+																							class="elementor-button-content-wrapper">
+																							<span
+																								class="elementor-button-text">Selengkapnya</span>
+																						</span>
+																					</a>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
+																	data-id="74377e7d" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
+																			data-id="d85cb72"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
+																				data-id="6ca2852"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a href="/konsultasi-umroh/">
+																					<img width="500" height="500"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-104564"
+																						alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																						data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																						data-lazy-sizes="(max-width: 500px) 100vw, 500px"
+																						data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
+																							loading="lazy" width="500"
+																							height="500"
+																							src="/wp-content/uploads/2025/07/3.webp"
+																							class="attachment-medium_large size-medium_large wp-image-104564"
+																							alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																							srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																							sizes="(max-width: 500px) 100vw, 500px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
+																				data-id="8a76071"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
+																					data-id="5039932d"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Hukum Niat Umroh Untuk Orang
+																						Yang
+																						Sudah Meninggal?</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
+																					data-id="5f0cbed3"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="33ce77d4"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div data-elementor-type="loop-item"
+																data-elementor-id="106607"
+																class="elementor elementor-106607 e-loop-item e-loop-item-12646 post-12646 post type-post status-publish format-standard has-post-thumbnail hentry category-info-umroh ast-article-single"
+																data-elementor-post-type="elementor_library"
+																data-custom-edit-handle="1">
+																<div class="elementor-element elementor-element-61102852 elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
+																	data-id="61102852" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-2cb8d007 e-con-full e-flex e-con e-child"
+																			data-id="2cb8d007"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-483d3f6e elementor-widget elementor-widget-image"
+																				data-id="483d3f6e"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a href="/visa-umroh/">
+																					<img width="500" height="500"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-104564"
+																						alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																						data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																						data-lazy-sizes="(max-width: 500px) 100vw, 500px"
+																						data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
+																							loading="lazy" width="500"
+																							height="500"
+																							src="/wp-content/uploads/2025/07/3.webp"
+																							class="attachment-medium_large size-medium_large wp-image-104564"
+																							alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																							srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																							sizes="(max-width: 500px) 100vw, 500px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-3cd120ce e-con-full e-flex e-con e-child"
+																				data-id="3cd120ce"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-6ee10933 elementor-widget elementor-widget-heading"
+																					data-id="6ee10933"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Berita Seputar Umroh – Syarat
+																						dan
+																						Biaya Visa Umroh</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-783d9507 e-con-full e-flex e-con e-child"
+																					data-id="783d9507"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-3386c946 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="3386c946"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																				<div class="elementor-element elementor-element-22a2cf94 elementor-align-left elementor-widget__width-inherit elementor-widget elementor-widget-button"
+																					data-id="22a2cf94"
+																					data-element_type="widget"
+																					data-widget_type="button.default">
+																					<a class="elementor-button elementor-button-link elementor-size-sm"
+																						href="/visa-umroh/">
+																						<span
+																							class="elementor-button-content-wrapper">
+																							<span
+																								class="elementor-button-text">Selengkapnya</span>
+																						</span>
+																					</a>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="elementor-element elementor-element-74377e7d elementor-hidden-desktop elementor-hidden-tablet e-flex e-con-boxed e-con e-parent"
+																	data-id="74377e7d" data-element_type="container">
+																	<div class="e-con-inner">
+																		<div class="elementor-element elementor-element-d85cb72 e-con-full e-flex e-con e-child"
+																			data-id="d85cb72"
+																			data-element_type="container"
+																			data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																			<div class="elementor-element elementor-element-6ca2852 elementor-widget__width-initial elementor-widget elementor-widget-image"
+																				data-id="6ca2852"
+																				data-element_type="widget"
+																				data-widget_type="image.default">
+																				<a href="/konsultasi-umroh/">
+																					<img width="500" height="500"
+																						src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20500'%3E%3C/svg%3E"
+																						class="attachment-medium_large size-medium_large wp-image-104564"
+																						alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																						data-lazy-srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																						data-lazy-sizes="(max-width: 500px) 100vw, 500px"
+																						data-lazy-src="/wp-content/uploads/2025/07/3.webp" /><noscript><img
+																							loading="lazy" width="500"
+																							height="500"
+																							src="/wp-content/uploads/2025/07/3.webp"
+																							class="attachment-medium_large size-medium_large wp-image-104564"
+																							alt="perbedaan haji dan umroh, cuaca dingin saat umroh, umroh private, umroh mandiri"
+																							srcset="/wp-content/uploads/2025/07/3.webp 500w, /wp-content/uploads/2025/07/3-300x300.webp 300w, /wp-content/uploads/2025/07/3-150x150.webp 150w"
+																							sizes="(max-width: 500px) 100vw, 500px" /></noscript>
+																				</a>
+																			</div>
+																			<div class="elementor-element elementor-element-8a76071 e-con-full e-flex e-con e-child"
+																				data-id="8a76071"
+																				data-element_type="container"
+																				data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+																				<div class="elementor-element elementor-element-5039932d elementor-widget elementor-widget-heading"
+																					data-id="5039932d"
+																					data-element_type="widget"
+																					data-widget_type="heading.default">
+																					<h4
+																						class="elementor-heading-title elementor-size-default">
+																						Berita Seputar Umroh – Syarat
+																						dan
+																						Biaya Visa Umroh</h4>
+																				</div>
+																				<div class="elementor-element elementor-element-5f0cbed3 e-con-full e-flex e-con e-child"
+																					data-id="5f0cbed3"
+																					data-element_type="container">
+																					<div class="elementor-element elementor-element-33ce77d4 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+																						data-id="33ce77d4"
+																						data-element_type="widget"
+																						data-widget_type="icon-list.default">
+																						<ul
+																							class="elementor-icon-list-items">
+																							<li
+																								class="elementor-icon-list-item">
+																								<span
+																									class="elementor-icon-list-icon">
+																									<svg xmlns="http://www.w3.org/2000/svg"
+																										id="Layer_1"
+																										data-name="Layer 1"
+																										viewBox="0 0 24 24"
+																										width="512"
+																										height="512">
+																										<path
+																											d="M17,0H7C4.243,0,2,2.243,2,5v15c0,2.206,1.794,4,4,4h11c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm3,5v11H8V2h4V10.347c0,.623,.791,.89,1.169,.395l1.331-1.743,1.331,1.743c.378,.495,1.169,.228,1.169-.395V2c1.654,0,3,1.346,3,3ZM6,2.184v13.816c-.732,0-1.409,.212-2,.556V5c0-1.302,.839-2.402,2-2.816Zm11,19.816H6c-2.629-.047-2.627-3.954,0-4h14v1c0,1.654-1.346,3-3,3Z">
+																										</path>
+																									</svg> </span>
+																								<span
+																									class="elementor-icon-list-text"><span>Info
+																										Umroh</span></span>
+																							</li>
+																						</ul>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 						</div>
-				</div>
-				</main><!-- #main -->
+					</main><!-- #main -->
 
 
-			</div><!-- #primary -->
+				</div><!-- #primary -->
 
 
-		</div> <!-- ast-container -->
-	</div><!-- #content -->
+			</div> <!-- ast-container -->
+		</div><!-- #content -->
 
-	<footer></footer>
+		<footer></footer>
 
 
-
-	</div><!-- #page -->
-
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
-		style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
-		<defs>
-			<filter id="ast-img-color-filter-2">
-				<feColorMatrix color-interpolation-filters="sRGB" type="matrix"
-					values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
-				<feComponentTransfer color-interpolation-filters="sRGB">
-					<feFuncR type="table" tableValues="1 1" />
-					<feFuncG type="table" tableValues="1 1" />
-					<feFuncB type="table" tableValues="1 1" />
-					<feFuncA type="table" tableValues="1 1" />
-				</feComponentTransfer>
-				<feComposite in2="SourceGraphic" operator="in" />
-			</filter>
-		</defs>
-	</svg>
-	<div data-elementor-type="popup" data-elementor-id="106764"
-		class="elementor elementor-106764 elementor-location-popup"
-		data-elementor-settings="{&quot;a11y_navigation&quot;:&quot;yes&quot;,&quot;triggers&quot;:{&quot;page_load_delay&quot;:1,&quot;page_load&quot;:&quot;yes&quot;},&quot;timing&quot;:[]}"
-		data-elementor-post-type="elementor_library">
-		<div class="elementor-element elementor-element-88f2027 e-flex e-con-boxed e-con e-parent" data-id="88f2027"
-			data-element_type="container">
-			<div class="e-con-inner">
-				<div class="elementor-element elementor-element-2145679 elementor-widget elementor-widget-image"
-					data-id="2145679" data-element_type="widget" data-widget_type="image.default">
-					<a href="/konsultasi-umroh/">
-						<img width="639" height="800"
-							src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20639%20800'%3E%3C/svg%3E"
-							class="attachment-large size-large wp-image-106765" alt=""
-							data-lazy-srcset="/wp-content/uploads/2025/11/Diskon-1-Juta-639x800.webp 639w, /wp-content/uploads/2025/11/Diskon-1-Juta-240x300.webp 240w, /wp-content/uploads/2025/11/Diskon-1-Juta-768x961.webp 768w, /wp-content/uploads/2025/11/Diskon-1-Juta.webp 1023w"
-							data-lazy-sizes="(max-width: 639px) 100vw, 639px"
-							data-lazy-src="/wp-content/uploads/2025/11/Diskon-1-Juta-639x800.webp" /><noscript><img
-								loading="lazy" width="639" height="800"
-								src="/wp-content/uploads/2025/11/Diskon-1-Juta-639x800.webp"
-								class="attachment-large size-large wp-image-106765" alt=""
-								srcset="/wp-content/uploads/2025/11/Diskon-1-Juta-639x800.webp 639w, /wp-content/uploads/2025/11/Diskon-1-Juta-240x300.webp 240w, /wp-content/uploads/2025/11/Diskon-1-Juta-768x961.webp 768w, /wp-content/uploads/2025/11/Diskon-1-Juta.webp 1023w"
-								sizes="(max-width: 639px) 100vw, 639px" /></noscript> </a>
-				</div>
-				<div class="elementor-element elementor-element-3795637 elementor-mobile-align-justify elementor-align-justify elementor-widget-mobile__width-inherit elementor-widget elementor-widget-button"
-					data-id="3795637" data-element_type="widget" data-widget_type="button.default">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="/konsultasi-umroh/">
-						<span class="elementor-button-content-wrapper">
-							<span class="elementor-button-icon">
-								<svg aria-hidden="true" class="e-font-icon-svg e-fab-whatsapp" viewBox="0 0 448 512"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
-									</path>
-								</svg> </span>
-							<span class="elementor-button-text">Konsultasi Gratis</span>
-						</span>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<!-- Meta Pixel Event Code -->
+	<script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+        document.addEventListener( 'wpcf7mailsent', function( event ) {
+        if( "fb_pxl_code" in event.detail.apiResponse){
+            eval(event.detail.apiResponse.fb_pxl_code);
+        }
+        }, false );
+    </script>
+	<!-- End Meta Pixel Event Code -->
 	<div id='fb-pxl-ajax-code'></div>
 	<script>
 		const lazyloadRunObserver = () => {
@@ -9882,15 +9898,15 @@
 		!function o(n, c, a) { function s(t, e) { if (!c[t]) { if (!n[t]) { var r = "function" == typeof require && require; if (!e && r) return r(t, !0); if (u) return u(t, !0); throw (r = new Error("Cannot find module '" + t + "'")).code = "MODULE_NOT_FOUND", r } r = c[t] = { exports: {} }, n[t][0].call(r.exports, function (e) { return s(n[t][1][e] || e) }, r, r.exports, o, n, c, a) } return c[t].exports } for (var u = "function" == typeof require && require, e = 0; e < a.length; e++)s(a[e]); return s }({ 1: [function (e, t, r) { "use strict"; !function () { const r = "undefined" == typeof rocket_pairs ? [] : rocket_pairs, e = "undefined" == typeof rocket_excluded_pairs ? [] : rocket_excluded_pairs; e.map(t => { var e = t.selector; const r = document.querySelectorAll(e); r.forEach(e => { e.setAttribute("data-rocket-lazy-bg-".concat(t.hash), "excluded") }) }); const o = document.querySelector("#wpr-lazyload-bg-container"); var t = rocket_lazyload_css_data.threshold || 300; const n = new IntersectionObserver(e => { e.forEach(t => { if (t.isIntersecting) { const e = r.filter(e => t.target.matches(e.selector)); e.map(t => { var e; t && ((e = document.createElement("style")).textContent = t.style, o.insertAdjacentElement("afterend", e), t.elements.forEach(e => { n.unobserve(e), e.setAttribute("data-rocket-lazy-bg-".concat(t.hash), "loaded") })) }) } }) }, { rootMargin: t + "px" }); function c() { 0 < (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : []).length && r.forEach(t => { try { const e = document.querySelectorAll(t.selector); e.forEach(e => { "loaded" !== e.getAttribute("data-rocket-lazy-bg-".concat(t.hash)) && "excluded" !== e.getAttribute("data-rocket-lazy-bg-".concat(t.hash)) && (n.observe(e), (t.elements || (t.elements = [])).push(e)) }) } catch (e) { console.error(e) } }) } c(); const a = function () { const o = window.MutationObserver; return function (e, t) { if (e && 1 === e.nodeType) { const r = new o(t); return r.observe(e, { attributes: !0, childList: !0, subtree: !0 }), r } } }(); t = document.querySelector("body"), a(t, c) }() }, {}] }, {}, [1]);
 		//# sourceMappingURL=lazyload-css.min.js.map
 	</script>
-	<script src="/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.33.1"
+	<script src="/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.33.2"
 		id="elementor-webpack-runtime-js"></script>
-	<script src="/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.33.1"
+	<script src="/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.33.2"
 		id="elementor-frontend-modules-js"></script>
 	<script src="/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3" id="jquery-ui-core-js"></script>
 	<script id="elementor-frontend-js-before">
-		var elementorFrontendConfig = { "environmentMode": { "edit": false, "wpPreview": false, "isScriptDebug": false }, "i18n": { "shareOnFacebook": "Bagikan di Facebook", "shareOnTwitter": "Bagikan di Twitter", "pinIt": "Buat Pin", "download": "Unduh", "downloadImage": "Unduh gambar", "fullscreen": "Layar Penuh", "zoom": "Perbesar", "share": "Bagikan", "playVideo": "Putar Video", "previous": "Sebelumnya", "next": "Selanjutnya", "close": "Tutup", "a11yCarouselPrevSlideMessage": "Slide sebelumnya", "a11yCarouselNextSlideMessage": "Slide selanjutnya", "a11yCarouselFirstSlideMessage": "This is the first slide", "a11yCarouselLastSlideMessage": "This is the last slide", "a11yCarouselPaginationBulletMessage": "Go to slide" }, "is_rtl": false, "breakpoints": { "xs": 0, "sm": 480, "md": 767, "lg": 1024, "xl": 1440, "xxl": 1600 }, "responsive": { "breakpoints": { "mobile": { "label": "Mobile Portrait", "value": 766, "default_value": 767, "direction": "max", "is_enabled": true }, "mobile_extra": { "label": "Mobile Landscape", "value": 880, "default_value": 880, "direction": "max", "is_enabled": false }, "tablet": { "label": "Tablet Portrait", "value": 1023, "default_value": 1024, "direction": "max", "is_enabled": true }, "tablet_extra": { "label": "Tablet Landscape", "value": 1200, "default_value": 1200, "direction": "max", "is_enabled": false }, "laptop": { "label": "Laptop", "value": 1366, "default_value": 1366, "direction": "max", "is_enabled": false }, "widescreen": { "label": "Layar lebar", "value": 2400, "default_value": 2400, "direction": "min", "is_enabled": false } }, "hasCustomBreakpoints": true }, "version": "3.33.1", "is_static": false, "experimentalFeatures": { "e_font_icon_svg": true, "additional_custom_breakpoints": true, "container": true, "e_optimized_markup": true, "theme_builder_v2": true, "landing-pages": true, "nested-elements": true, "home_screen": true, "global_classes_should_enforce_capabilities": true, "e_variables": true, "cloud-library": true, "e_opt_in_v4_page": true, "import-export-customization": true, "mega-menu": true, "e_pro_variables": true }, "urls": { "assets": "/wp-content\/plugins\/elementor\/assets\/", "ajaxurl": "/wp-admin\/admin-ajax.php", "uploadUrl": "/wp-content\/uploads" }, "nonces": { "floatingButtonsClickTracking": "400da6f1d2" }, "swiperClass": "swiper", "settings": { "page": [], "editorPreferences": [] }, "kit": { "body_background_background": "classic", "viewport_mobile": 766, "viewport_tablet": 1023, "active_breakpoints": ["viewport_mobile", "viewport_tablet"], "global_image_lightbox": "yes", "lightbox_enable_counter": "yes", "lightbox_enable_fullscreen": "yes", "lightbox_enable_zoom": "yes", "lightbox_enable_share": "yes", "lightbox_title_src": "title", "lightbox_description_src": "description" }, "post": { "id": 40768, "title": "Travel%20Umroh%20Rabbanitour%20%7C%E2%9C%85Umroh%2025JT%20ALL%20IN%7C%E2%9C%85Diskon%201JT", "excerpt": "", "featuredImage": "/wp-content\/uploads\/2024\/08\/Rabbanitour-Bandung-e1752825033963.webp" } };
+		var elementorFrontendConfig = { "environmentMode": { "edit": false, "wpPreview": false, "isScriptDebug": false }, "i18n": { "shareOnFacebook": "Bagikan di Facebook", "shareOnTwitter": "Bagikan di Twitter", "pinIt": "Buat Pin", "download": "Unduh", "downloadImage": "Unduh gambar", "fullscreen": "Layar Penuh", "zoom": "Perbesar", "share": "Bagikan", "playVideo": "Putar Video", "previous": "Sebelumnya", "next": "Selanjutnya", "close": "Tutup", "a11yCarouselPrevSlideMessage": "Slide sebelumnya", "a11yCarouselNextSlideMessage": "Slide selanjutnya", "a11yCarouselFirstSlideMessage": "This is the first slide", "a11yCarouselLastSlideMessage": "This is the last slide", "a11yCarouselPaginationBulletMessage": "Go to slide" }, "is_rtl": false, "breakpoints": { "xs": 0, "sm": 480, "md": 767, "lg": 1024, "xl": 1440, "xxl": 1600 }, "responsive": { "breakpoints": { "mobile": { "label": "Mobile Portrait", "value": 766, "default_value": 767, "direction": "max", "is_enabled": true }, "mobile_extra": { "label": "Mobile Landscape", "value": 880, "default_value": 880, "direction": "max", "is_enabled": false }, "tablet": { "label": "Tablet Portrait", "value": 1023, "default_value": 1024, "direction": "max", "is_enabled": true }, "tablet_extra": { "label": "Tablet Landscape", "value": 1200, "default_value": 1200, "direction": "max", "is_enabled": false }, "laptop": { "label": "Laptop", "value": 1366, "default_value": 1366, "direction": "max", "is_enabled": false }, "widescreen": { "label": "Layar lebar", "value": 2400, "default_value": 2400, "direction": "min", "is_enabled": false } }, "hasCustomBreakpoints": true }, "version": "3.33.2", "is_static": false, "experimentalFeatures": { "e_font_icon_svg": true, "additional_custom_breakpoints": true, "container": true, "e_optimized_markup": true, "theme_builder_v2": true, "landing-pages": true, "nested-elements": true, "home_screen": true, "global_classes_should_enforce_capabilities": true, "e_variables": true, "cloud-library": true, "e_opt_in_v4_page": true, "import-export-customization": true, "mega-menu": true, "e_pro_variables": true }, "urls": { "assets": "https:\/\/rabbanitour.com\/wp-content\/plugins\/elementor\/assets\/", "ajaxurl": "https:\/\/rabbanitour.com\/wp-admin\/admin-ajax.php", "uploadUrl": "https:\/\/rabbanitour.com\/wp-content\/uploads" }, "nonces": { "floatingButtonsClickTracking": "6e685263a2" }, "swiperClass": "swiper", "settings": { "page": [], "editorPreferences": [] }, "kit": { "body_background_background": "classic", "viewport_mobile": 766, "viewport_tablet": 1023, "active_breakpoints": ["viewport_mobile", "viewport_tablet"], "global_image_lightbox": "yes", "lightbox_enable_counter": "yes", "lightbox_enable_fullscreen": "yes", "lightbox_enable_zoom": "yes", "lightbox_enable_share": "yes", "lightbox_title_src": "title", "lightbox_description_src": "description" }, "post": { "id": 40768, "title": "Travel%20Umroh%20Rabbanitour%20%7C%E2%9C%85Umroh%2025JT%20ALL%20IN%7C%E2%9C%85Diskon%201JT", "excerpt": "", "featuredImage": "https:\/\/rabbanitour.com\/wp-content\/uploads\/2024\/08\/Rabbanitour-Bandung-e1752825033963.webp" } };
 	</script>
-	<script src="/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.33.1"
+	<script src="/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.33.2"
 		id="elementor-frontend-js"></script>
 	<script src="/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5" id="swiper-js"></script>
 	<script src="/wp-content/plugins/elementor-pro/assets/lib/sticky/jquery.sticky.min.js?ver=3.33.1"
@@ -9899,7 +9915,7 @@
 	<script id="fca_pc_client_js-js-extra">
 		var fcaPcEvents = [{ "triggerType": "post", "trigger": ["front"], "parameters": {}, "pixel_type": "Facebook", "event": "PageView", "delay": "0", "scroll": "0", "apiAction": "trackCustom", "ID": "f790f890-39c6-4d62-bf9f-ee6d7e1715b0", "paused": false }, { "triggerType": "css", "trigger": "#floatBtn-2", "parameters": { "content_name": "{post_title}", "content_type": "product", "content_ids": "{post_id}" }, "pixel_type": "Facebook", "event": "AddToCart", "delay": "0", "scroll": "0", "apiAction": "track", "ID": "444e588e-a9e9-412b-8688-648602fb2c2c", "paused": false }];
 		var fcaPcPost = { "title": "Travel Umroh Terbaik | RabbaniTour", "type": "page", "id": "40768", "categories": [] };
-		var fcaPcOptions = { "pixel_types": ["Facebook Pixel"], "capis": [], "ajax_url": "/wp-admin\/admin-ajax.php", "debug": "", "edd_currency": "USD", "nonce": "10ef634334", "utm_support": "", "user_parameters": "", "edd_enabled": "", "edd_delay": "0", "woo_enabled": "", "woo_delay": "0", "woo_order_cookie": "", "video_enabled": "" };
+		var fcaPcOptions = { "pixel_types": ["Facebook Pixel"], "capis": [], "ajax_url": "https:\/\/rabbanitour.com\/wp-admin\/admin-ajax.php", "debug": "", "edd_currency": "USD", "nonce": "21e3f728c8", "utm_support": "", "user_parameters": "", "edd_enabled": "", "edd_delay": "0", "woo_enabled": "", "woo_delay": "0", "woo_order_cookie": "", "video_enabled": "" };
 	</script>
 	<script type="rocketlazyloadscript"
 		data-rocket-src="/wp-content/plugins/facebook-conversion-pixel/pixel-cat.min.js?ver=3.2.0"
@@ -9915,7 +9931,7 @@
 wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
 </script>
 	<script id="elementor-pro-frontend-js-before">
-		var ElementorProFrontendConfig = { "ajaxurl": "/wp-admin\/admin-ajax.php", "nonce": "cda7ee42e2", "urls": { "assets": "/wp-content\/plugins\/elementor-pro\/assets\/", "rest": "/wp-json\/" }, "settings": { "lazy_load_background_images": true }, "popup": { "hasPopUps": true }, "shareButtonsNetworks": { "facebook": { "title": "Facebook", "has_counter": true }, "twitter": { "title": "Twitter" }, "linkedin": { "title": "LinkedIn", "has_counter": true }, "pinterest": { "title": "Pinterest", "has_counter": true }, "reddit": { "title": "Reddit", "has_counter": true }, "vk": { "title": "VK", "has_counter": true }, "odnoklassniki": { "title": "OK", "has_counter": true }, "tumblr": { "title": "Tumblr" }, "digg": { "title": "Digg" }, "skype": { "title": "Skype" }, "stumbleupon": { "title": "StumbleUpon", "has_counter": true }, "mix": { "title": "Mix" }, "telegram": { "title": "Telegram" }, "pocket": { "title": "Pocket", "has_counter": true }, "xing": { "title": "XING", "has_counter": true }, "whatsapp": { "title": "WhatsApp" }, "email": { "title": "Email" }, "print": { "title": "Print" }, "x-twitter": { "title": "X" }, "threads": { "title": "Threads" } }, "facebook_sdk": { "lang": "id_ID", "app_id": "" }, "lottie": { "defaultAnimationUrl": "/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json" } };
+		var ElementorProFrontendConfig = { "ajaxurl": "https:\/\/rabbanitour.com\/wp-admin\/admin-ajax.php", "nonce": "ad6f2ae9d5", "urls": { "assets": "https:\/\/rabbanitour.com\/wp-content\/plugins\/elementor-pro\/assets\/", "rest": "https:\/\/rabbanitour.com\/wp-json\/" }, "settings": { "lazy_load_background_images": true }, "popup": { "hasPopUps": true }, "shareButtonsNetworks": { "facebook": { "title": "Facebook", "has_counter": true }, "twitter": { "title": "Twitter" }, "linkedin": { "title": "LinkedIn", "has_counter": true }, "pinterest": { "title": "Pinterest", "has_counter": true }, "reddit": { "title": "Reddit", "has_counter": true }, "vk": { "title": "VK", "has_counter": true }, "odnoklassniki": { "title": "OK", "has_counter": true }, "tumblr": { "title": "Tumblr" }, "digg": { "title": "Digg" }, "skype": { "title": "Skype" }, "stumbleupon": { "title": "StumbleUpon", "has_counter": true }, "mix": { "title": "Mix" }, "telegram": { "title": "Telegram" }, "pocket": { "title": "Pocket", "has_counter": true }, "xing": { "title": "XING", "has_counter": true }, "whatsapp": { "title": "WhatsApp" }, "email": { "title": "Email" }, "print": { "title": "Print" }, "x-twitter": { "title": "X" }, "threads": { "title": "Threads" } }, "facebook_sdk": { "lang": "id_ID", "app_id": "" }, "lottie": { "defaultAnimationUrl": "https:\/\/rabbanitour.com\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json" } };
 	</script>
 	<script src="/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.33.1"
 		id="elementor-pro-frontend-js"></script>
@@ -9942,7 +9958,8 @@ wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
 		src="/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script>
 	<script>class RocketElementorAnimation { constructor() { this.deviceMode = document.createElement("span"), this.deviceMode.id = "elementor-device-mode-wpr", this.deviceMode.setAttribute("class", "elementor-screen-only"), document.body.appendChild(this.deviceMode) } _detectAnimations() { let t = getComputedStyle(this.deviceMode, ":after").content.replace(/"/g, ""); this.animationSettingKeys = this._listAnimationSettingsKeys(t), document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t => { const e = t.getBoundingClientRect(); if (e.bottom >= 0 && e.top <= window.innerHeight) try { this._animateElement(t) } catch (t) { } }) } _animateElement(t) { const e = JSON.parse(t.dataset.settings), i = e._animation_delay || e.animation_delay || 0, n = e[this.animationSettingKeys.find(t => e[t])]; if ("none" === n) return void t.classList.remove("elementor-invisible"); t.classList.remove(n), this.currentAnimation && t.classList.remove(this.currentAnimation), this.currentAnimation = n; let s = setTimeout(() => { t.classList.remove("elementor-invisible"), t.classList.add("animated", n), this._removeAnimationSettings(t, e) }, i); window.addEventListener("rocket-startLoading", function () { clearTimeout(s) }) } _listAnimationSettingsKeys(t = "mobile") { const e = [""]; switch (t) { case "mobile": e.unshift("_mobile"); case "tablet": e.unshift("_tablet"); case "desktop": e.unshift("_desktop") }const i = []; return ["animation", "_animation"].forEach(t => { e.forEach(e => { i.push(t + e) }) }), i } _removeAnimationSettings(t, e) { this._listAnimationSettingsKeys().forEach(t => delete e[t]), t.dataset.settings = JSON.stringify(e) } static run() { const t = new RocketElementorAnimation; requestAnimationFrame(t._detectAnimations.bind(t)) } } document.addEventListener("DOMContentLoaded", RocketElementorAnimation.run);</script>
 
-	<script src="/js/menu.js"></script>
+
+	
 	<script src="/js/main.js"></script>
 
 </body>

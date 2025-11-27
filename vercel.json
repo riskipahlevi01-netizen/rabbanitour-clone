@@ -1,8 +1,16 @@
 {
   "rewrites": [
     {
-      "source": "/paket-umroh/:slug",  
-      "destination": "/paket-umroh/:slug.html"  
+      "source": "/paket-umroh/:slug",
+      "destination": "/paket-umroh/:slug.html"
+    },
+    {
+      "source": "/layanan/:slug",
+      "destination": "/layanan/:slug.html"
+    },
+    {
+      "source": "/wisatamuslimhalal/:slug",
+      "destination": "/wisatamuslimhalal/:slug.html"
     }
   ]
 }

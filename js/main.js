@@ -31,16 +31,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   const basePath = (() => {
     const pathname = window.location.pathname;
 
-    if (pathname.includes("/blogs/detail/")) {
+    if (pathname.includes("/artikel/detail/")) {
       return "../../../";
     }
-    if (pathname.includes("/info/")) {
-      return "../../";
+    if (pathname.includes("/layanan/")) {
+      return "../../../";
     }
 
     if (pathname.includes("/tentang-kami") ||
-      pathname.includes("/bimbel-akmil") ||
-      pathname.includes("/blogs") ||
+      pathname.includes("/haji-khusus") ||
+      pathname.includes("/wisatamuslimhalal") ||
+      pathname.includes("/artikel") ||
+      pathname.includes("/syarat-dan-ketentuan") ||
       pathname.includes("/kontak-kami")) {
       return "..";
     }
