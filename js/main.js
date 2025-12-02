@@ -37,11 +37,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (pathname.includes("/layanan/")) {
       return "../../../";
     }
+     if (pathname.includes("/layanan/")) {
+      return "../../../";
+    }
 
     if (pathname.includes("/tentang-kami") ||
       pathname.includes("/haji-khusus") ||
       pathname.includes("/wisatamuslimhalal") ||
+      pathname.includes("/kantor") ||
       pathname.includes("/artikel") ||
+      pathname.includes("/layanan") ||
       pathname.includes("/syarat-dan-ketentuan") ||
       pathname.includes("/kontak-kami")) {
       return "..";
