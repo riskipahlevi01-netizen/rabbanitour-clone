@@ -60,6 +60,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadComponent("footer", `${basePath}/components/footer.html`);
 });
 
+$('#menu-toggle-close').click(function() {
+    // Logika untuk menutup menu atau popup
+    $('#menu').hide(); // Contoh, sembunyikan elemen dengan ID "menu"
+});
 
 
 
