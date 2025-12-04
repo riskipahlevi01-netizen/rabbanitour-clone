@@ -58,12 +58,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Muat header dan footer
   // await loadComponent("header", `${basePath}/components/header.html`);
   await loadComponent("footer", `${basePath}/components/footer.html`);
+
 });
 
-$('#menu-toggle-close').click(function() {
-    // Logika untuk menutup menu atau popup
-    $('#menu').hide(); // Contoh, sembunyikan elemen dengan ID "menu"
-});
+
 
 
 
