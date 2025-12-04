@@ -34,9 +34,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (pathname.includes("/artikel/detail/")) {
       return "../../../";
     }
-    if (pathname.includes("/layanan/")) {
-      return "../../../";
-    }
      if (pathname.includes("/layanan/")) {
       return "../../../";
     }
